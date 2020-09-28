@@ -5,10 +5,10 @@
 export const environment = {
   production: true,
   // server: 'http://139.99.92.36:3000/',
-   server: 'http://localhost:3000/',
-  //server: 'http://192.168.181.133:3000/',
   // server: 'http://localhost:3000/',
-  // server: 'http://36.89.25.220:3000/',
+  // server: 'http://192.168.181.133:3000/',
+  // server: 'http://localhost:3000/',
+   server: 'http://36.89.25.220:3000/',
   camundah: 'http://36.89.25.222:9090/',
   authTokenKey: 'authce9d77b308c149d5992a80073637e4d5',
 };
