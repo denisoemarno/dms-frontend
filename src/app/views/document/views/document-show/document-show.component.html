@@ -1,0 +1,204 @@
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-md-4 p-grid">
+            <div class="card">
+                <div class="card-body">
+                    <div class="message mb-4">
+                        <div class="text-truncate font-weight-bold">
+                            Document Name
+                        </div>
+                        <div class="small text-muted text-truncate">
+                            {{ dataList?.name }}
+                        </div>
+                    </div>
+                    <div class="message mb-4">
+                        <div class="text-truncate font-weight-bold">
+                            Tags
+                        </div>
+                        <div class="small text-muted text-truncate">
+                            <div class="tags" *ngIf="dataList">
+                                <small *ngFor="let tag of dataList['tags']">
+                                    <span class="p-tag-rounded" [ngStyle]="{
+                      'background-color': tag['color'],
+                      'border-color': 'white',
+                      padding: '2px'
+                    }">{{ tag.name }} &nbsp;
+                                    </span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message mb-4">
+                        <div class="text-truncate font-weight-bold">
+                            Description
+                        </div>
+                        <div class="small text-muted text-truncate" [innerHtml]="dataList?.description"></div>
+                    </div>
+                    <div class="message mb-4">
+                        <div class="text-truncate font-weight-bold">
+                            Status
+                        </div>
+                        <div class="small text-muted text-truncate">
+                            {{ dataList?.status }}
+                        </div>
+                    </div>
+                    <div class="message mb-4">
+                        <div class="text-truncate font-weight-bold">
+                            Creator
+                        </div>
+                        <div class="small text-muted text-truncate">
+                            {{ dataList?.createdName }}
+                        </div>
+                    </div>
+                    <div class="message mb-4">
+                        <div class="text-truncate font-weight-bold">
+                            Last Update
+                        </div>
+                        <div class="small text-muted text-truncate">
+                            {{ dataList?.updatedAt | date: "d/M/yyyy h:mm:ss" }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <p-tabView [activeIndex]="1" #uploader>
+                        <p-tabPanel header="Files">
+                            <ng-template let-data pTemplate="gridItem">
+                                <div class="row">
+                                    <div class="col-md-4" *ngFor="let data of dataList.files">
+                                        <div class="card bg-light">
+                                            <div class="card-body">
+                                                <!-- <div class="btn-group float-right" dropdown>
+                                                <button type="button" class="btn dropdown-toggle p-0" dropdownToggle>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                                                    <a class="dropdown-item" (click)="onViewDocument(data)">Show Document</a>
+                                                </div>
+                                            </div> -->
+                                                <div class="col-md-9">
+                                                    <div class="h4 mb-0 text-uppercas">{{ data.name }} </div>
+                                                    <small
+                                                        class="text-muted text-uppercase font-weight-bold">{{ data.file  | slice:0:20 }}...</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-tabPanel>
+                        <p-tabPanel header="Verification">
+
+                            <form [formGroup]="mainForm" autocomplete="off"
+                                *ngIf="status !== 'approvalCustodian' && status !== 'writeDocument'">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="text-truncate font-weight-bold">Komentar</label>
+                                            <textarea class="form-control" formControlName="comment"
+                                                placeholder="Enter comment to verify with comment (optional)" cols="60"
+                                                pInputTextarea autoResize="autoResize"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <form [formGroup]="custodianForm" autocomplete="off" *ngIf="status === 'approvalCustodian'">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="text-truncate font-weight-bold">No Dokumen</label>
+                                            <input class="form-control" type="text" formControlName="documentNumber" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="text-truncate font-weight-bold">Categories</label>
+                                                    <br />
+                                                    <p-dropdown [options]="categories" formControlName="category">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="text-truncate font-weight-bold">Restriction</label>
+                                                    <br />
+                                                    <p-dropdown [options]="restrictions" formControlName="restriction">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="text-truncate font-weight-bold">Komentar</label>
+                                            <textarea class="form-control" formControlName="comment"
+                                                placeholder="Enter comment to verify with comment (optional)" cols="60"
+                                                pInputTextarea autoResize="autoResize"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- *ngIf="status === 'writeDocument'" -->
+                            <form [formGroup]="docWriterForm" autocomplete="off" *ngIf="status === 'writeDocument'">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="text-truncate font-weight-bold">Tags</label>
+                                                        <br />
+                                                        <p-autoComplete formControlName="tags" field="name"
+                                                            [suggestions]="tagsResults"
+                                                            (completeMethod)="onSearchTags($event)" [multiple]="true"
+                                                            minLength="3" placeholder="Ketikan 3 karakter">
+                                                        </p-autoComplete>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="text-truncate font-weight-bold">Files</label>
+                                                        <br />
+                                                        <p-fileUpload customUpload="true" [showUploadButton]="false"
+                                                            showCancelButton="false" (uploadHandler)="onUpload($event)"
+                                                            (onRemove)="onRemove($event)" (onSelect)="onSelect($event)"
+                                                            multiple="multiple" accept=".doc,.docx,.xls,.xlsx,.pdf">
+                                                        </p-fileUpload>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="action mt-2">
+                                <button *ngFor="let wo of workflow; let index = index" [ngClass]="wo.style"
+                                    (click)="onActionFlow(wo)"> {{ wo.label }}</button>
+                            </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="Activity">
+                            <app-activity></app-activity>
+                        </p-tabPanel>
+                        <p-tabPanel header="Permision" [disabled]="true">
+                            Permision not found.
+                        </p-tabPanel>
+                    </p-tabView>
+                </div>
+                <div class="card-footer">
+                    <p-footer>
+                        <button class="btn btn-sm back" pButton (click)="onCancel()" label="Back"></button>
+                    </p-footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-confirmDialog></p-confirmDialog>
+<p-blockUI [blocked]="blocked" [target]="uploader"></p-blockUI>

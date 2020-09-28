@@ -1,0 +1,38 @@
+<div class="col-sm-12">
+  <div class="card">
+    <div class="card-header">
+      <strong> Add Data</strong>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="mainForm" autocomplete="off">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Name</label
+              ><input
+                class="form-control"
+                type="text"
+                formControlName="name"
+              />
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Color</label
+              > <br>
+              <p-colorPicker [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'2ms'" [inline]="true" formControlName="color"></p-colorPicker>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer">
+      <p-footer>
+        <button class="btn btn-sm" pButton (click)="onSubmit()" label="Submit" [disabled]="isDisabled"></button>
+        <button class="btn btn-sm" pButton (click)="onReset()" label="Reset" [disabled]="isDisabled"></button>
+        <button class="btn btn-sm back" pButton (click)="onCancel()" label="Back"></button>
+      </p-footer>
+    </div>
+  </div>
+</div>
+<p-confirmDialog></p-confirmDialog>

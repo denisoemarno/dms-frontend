@@ -1,0 +1,20 @@
+<div class="list-group list-group-accent">
+    <div class="list-group-item list-group-item-accent-warning list-group-item-divider mb-2" *ngFor="let act of activities; let index = index">
+        <div>{{ act.activity }}</div>
+        <small class="text-muted mr-3"><i class="icon-calendar"></i>&nbsp;
+            {{ act.updatedAt | date: "d/M/yyyy h:mm:ss" }}</small>
+        
+        <div class="message">
+            <div class="py-1 mr-3 float-left">
+                <div class="avatar">
+                    <img alt="admin@bootstrapmaster.com" class="img-avatar" src="assets/img/avatars/6.jpg" /><span
+                        class="avatar-status badge-success"></span>
+                </div>
+            </div>
+            <div>
+                <small class="text-muted">{{ act.createdName ?  act.createdName : act.createdLastName  }}</small>
+            </div>
+            <small class="text-muted">{{ act.comment ?  act.comment : 'Tidak ada komentar.'  }}</small>
+        </div>
+    </div>
+</div>

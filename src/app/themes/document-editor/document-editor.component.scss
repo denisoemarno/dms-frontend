@@ -1,0 +1,26 @@
+ #documenteditor_title_contentEditor {
+        height: 26px;
+        max-width: 75%;
+        width: auto;
+        overflow: hidden;
+        display: inline-block;
+        padding-left: 4px;
+        padding-right: 4px;
+        margin: 5px;
+    }
+
+    .single-line {
+        cursor: text !important;
+        outline: none;
+    }
+
+    #default_title_bar {
+        height: 36px;
+        line-height: 26px;
+        width: 100%;
+        font-size: 12px;
+        padding-left: 15px;
+        padding-right: 10px;
+        font-family: inherit;
+		box-sizing: border-box;
+    }

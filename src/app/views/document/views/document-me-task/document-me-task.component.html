@@ -1,0 +1,75 @@
+<p-toast position="top-right"></p-toast>
+<div class="animated fadeIn">
+  <div class="col-sm-12">
+    <div class="card card-accent-info">
+      <div class="card-header">
+        <strong>Document List</strong>
+        <div class="card-header-actions">
+          <button class="btn btn-sm" pButton type="button" label="Tambah" (click)="onAdd()"></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <p-dataView #dv [value]="dataList" [paginator]="true" [rows]="10" layout="grid" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" [totalRecords]="totalRowsCount">
+          <ng-template let-data pTemplate="gridItem">
+            <div class="col-md-3">
+              <div class="card bg-light">
+                <div class="card-body">
+                  <i *ngIf="data.status !=='rejected'" class="fa fa-check-circle-o" style="color: green;" [pTooltip]="data.status" tooltipPosition="top"></i>
+                  <i *ngIf="data.status ==='rejected'"class="fa fa-times-circle-o" style="color: red;" [pTooltip]="data.status" tooltipPosition="top"></i>
+
+
+                  <div class="btn-group float-right" dropdown>
+                    <button type="button" class="btn dropdown-toggle p-0" dropdownToggle></button>
+                    <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                      <a class="dropdown-item" (click)="onView(data)">Show</a>
+                      <!-- <a class="dropdown-item" (click)="onUpdate(data)">Edit</a>
+                      <a class="dropdown-item" (click)="onDelete(data)">Delete</a> -->
+                    </div>
+                  </div>
+                  <hr />
+
+                  <div class="row">
+                    <div class="col-md-9">
+                      <div class="h4 mb-0">
+                        <div class="text-truncate font-weight-bold"> {{ data.title }}</div>
+                        <small class="text-muted">{{ data.name }}.</small>
+                      </div>
+                      <small
+                        class="text-muted text-uppercase font-weight-bold">{{ data.createdAt | date: "d/M/yyyy" }}
+                      </small>
+                    </div>
+                    <div class="col-md-3" style="margin: auto;">
+                      <div class="h1 text-muted">
+                        <i class="icon-doc"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tags">
+                    <small *ngFor="let tag of data['tags']">
+                      <span class="p-tag-rounded" [ngStyle]="{
+                          'background-color': tag['color'],
+                          'border-color': 'white',
+                          padding: '2px'
+                        }">{{ tag.name }} &nbsp;
+                      </span>
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-dataView>
+      </div>
+      <div class="card-footer">
+        <p-footer>
+          <p-card>
+            <input pInputText type="text" placeholder="Search..." class="form-control"
+              (keyup)="onSearchChange($event)" />
+          </p-card>
+        </p-footer>
+      </div>
+    </div>
+  </div>
+</div>
+<p-confirmDialog></p-confirmDialog>

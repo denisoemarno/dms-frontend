@@ -1,0 +1,94 @@
+<p-toast position="top-right"></p-toast>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card card-accent-info">
+        <div class="card-header">
+          <strong>Document Type List</strong>
+          <div class="card-header-actions">
+            <button
+              class="btn btn-sm"
+              pButton
+              type="button"
+              label="Tambah"
+              (click)="onAdd()"
+            ></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <p-table
+            [value]="dataList"
+            [columns]="columns"
+            [scrollable]="true"
+            [lazy]="true"
+            [paginator]="true"
+            [rows]="10"
+            [rowsPerPageOptions]="[5, 10, 20, 30, 50, 100]"
+            [totalRecords]="totalRowsCount"
+            [lazyLoadOnInit]="false"
+            selectionMode="single"
+            [(selection)]="dataSelected"
+            scrollHeight="200px"
+            (onRowSelect)="onRowSelect($event)"
+            (onRowUnselect)="onRowUnselect($event)"
+            (onLazyLoad)="onLazyLoad($event)"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th *ngFor="let col of columns">
+                  {{ col.header }}
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-data>
+              <tr [pSelectableRow]="data">
+                <td *ngFor="let col of columns">
+                  {{ data[col.field] }}
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              <div class="p-grid">
+                <div class="p-col">
+                  <input
+                    pInputText
+                    type="text"
+                    placeholder="Search..."
+                    class="form-control"
+                    (keyup)="onSearchChange($event)"
+                  />
+                </div>
+              </div>
+            </ng-template>
+          </p-table>
+        </div>
+        <div class="card-footer">
+          <p-footer>
+            <button
+              class="btn btn-sm"
+              pButton
+              type="button"
+              label="Detail"
+              (click)="onView()"
+            ></button>
+            <button
+              class="btn btn-sm"
+              pButton
+              type="button"
+              label="Update"
+              (click)="onUpdate()"
+            ></button>
+            <button
+              class="btn btn-sm"
+              pButton
+              type="button"
+              label="Delete"
+              (click)="onDelete()"
+            ></button>
+          </p-footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-confirmDialog></p-confirmDialog>
